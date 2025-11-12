@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Color scheme extracted from Arogya logo */
+  --primary: #14b8a6;        /* Teal-500 - Main brand color */
+  --primary-dark: #0d9488;   /* Teal-600 - Darker teal */
+  --primary-darker: #0f766e; /* Teal-700 - Even darker */
+  --primary-light: #5eead4;  /* Teal-300 - Lighter teal */
+  --primary-lighter: #99f6e4;/* Teal-200 - Very light teal */
+  --primary-bg: #f0fdfa;     /* Teal-50 - Background tint */
+  --accent: #06b6d4;         /* Cyan-500 - Complementary accent */
+  --accent-light: #22d3ee;   /* Cyan-400 - Lighter accent */
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom Animations */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(13, 148, 136, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(13, 148, 136, 0.8);
+  }
+}
+
+.listening-pulse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(13, 148, 136, 0.3);
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.breathe-animation {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom status indicator */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.status-dot.active {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.status-dot.processing {
+  background: #3b82f6;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Desktop Layout */
+@media (min-width: 768px) {
+  body {
+    background: linear-gradient(135deg, var(--primary-darker) 0%, var(--primary) 50%, var(--accent) 100%);
+  }
+
+  #app {
+    max-width: 1200px;
+    margin: 2rem auto;
+    height: calc(100vh - 4rem);
+    border-radius: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  #desktopSidebar {
+    background: linear-gradient(135deg, var(--primary-darker) 0%, var(--primary-dark) 50%, var(--primary) 100%);
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    color: white;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+  }
+
+  #desktopContent {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  header {
+    border-radius: 0 !important;
+    flex-shrink: 0;
+    display: none;
+  }
+
+  #mainContent {
+    background: white !important;
+    flex: 1;
+    overflow-y: auto !important;
+  }
+
+  .bottom-fixed-section {
+    border-radius: 0 !important;
+    flex-shrink: 0;
+  }
+}
+
+/* Mobile - hide desktop sidebar and reset desktop content wrapper */
+@media (max-width: 767px) {
+  #desktopSidebar {
+    display: none !important;
+  }
+  
+  #desktopContent {
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  #mainContent {
+    flex: 1;
+    overflow-y: auto !important;
+  }
+}
