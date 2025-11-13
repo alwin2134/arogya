@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arogya - AI Appointment Booking</title>
+    <meta name="description" content="Book doctor appointments with AI-powered voice assistant" />
+    <meta name="theme-color" content="#14b8a6" />
+    <link rel="icon" type="image/png" href="../src/assets/icons/favicon/favicon-32x32.png" />
+    <link rel="manifest" href="../manifest.json" />
+    <link rel="apple-touch-icon" href="../src/assets/icons/favicon/apple-touch-icon.png" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- External CSS -->
+    <link rel='stylesheet' href='../src/css/index.css' />
+  </head>
+  <body class="bg-slate-50 h-screen overflow-hidden">
+    <!-- Main Container -->
+    <div id="app" class="max-w-md mx-auto h-screen bg-white shadow-xl flex flex-col md:max-w-none">
+      
+      <!-- Desktop Sidebar (hidden on mobile) -->
+      <div id="desktopSidebar" class="hidden">
+        <div class="text-center max-w-md">
+          <img src="../src/assets/icons/favicon/android-chrome-192x192.png" alt="Arogya Logo" class="w-24 h-24 mx-auto mb-6 rounded-2xl shadow-lg" />
+          <h1 class="text-5xl font-bold mb-4">Arogya</h1>
+          <p class="text-xl text-teal-50 mb-8 leading-relaxed">Your intelligent medical assistant for seamless appointment booking</p>
+          
+          <div class="space-y-4 text-left bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" x2="12" y1="19" y2="22"></line>
+              </svg>
+              <div>
+                <h3 class="font-semibold mb-1">Voice-First Experience</h3>
+                <p class="text-sm text-teal-100">Describe symptoms naturally using voice or text</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <div>
+                <h3 class="font-semibold mb-1">Smart Matching</h3>
+                <p class="text-sm text-teal-100">AI recommends the perfect specialist for you</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <div>
+                <h3 class="font-semibold mb-1">Real-Time Verification</h3>
+                <p class="text-sm text-teal-100">Instant confirmation with hospital availability</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Section -->
+      <div id="desktopContent" class="flex flex-col flex-1">
+      
+      <!-- Header -->
+      <header class="text-white p-6 shadow-lg flex-shrink-0" style="background: linear-gradient(135deg, var(--primary-dark), var(--primary));">
+        <div class="flex items-center gap-3">
+          <img src="../src/assets/icons/favicon/android-chrome-192x192.png" alt="Arogya Logo" class="w-10 h-10 rounded-lg" />
+          <h1 class="text-xl font-bold">Arogya</h1>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 overflow-y-auto hide-scrollbar p-8" id="mainContent">
+        
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="fade-in w-full max-w-lg">
+          <!-- Hero Section -->
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+              Feel Better, <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, var(--primary), var(--accent));">Faster</span>
+            </h2>
+            <p class="text-lg text-slate-600 leading-relaxed max-w-md mx-auto">
+              Tell me what's bothering you, and I'll connect you with the right doctor in minutes—not days.
+            </p>
+          </div>
+
+          <!-- Quick Start Prompt -->
+          <div class="rounded-3xl p-8 shadow-xl mb-6 text-center" style="background: linear-gradient(135deg, #ffffff 0%, var(--primary-bg) 100%); border: 2px solid var(--primary-light);">
+            <p class="text-xl font-semibold text-slate-900 mb-2">How are you feeling today?</p>
+            <p class="text-sm text-slate-600 mb-6">Just tap the microphone below and describe your symptoms naturally</p>
+            
+            <!-- Example prompts -->
+            <div class="flex flex-wrap gap-2 justify-center">
+              <span class="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs text-slate-700 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                "I have a fever and headache"
+              </span>
+              <span class="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs text-slate-700 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                "Back pain for 3 days"
+              </span>
+              <span class="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs text-slate-700 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                "Need a checkup"
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conversation Area -->
+        <div id="conversationArea" class="hidden space-y-4">
+          <!-- Messages will be dynamically inserted here -->
+        </div>
+
+        <!-- Entity Pills Section -->
+        <div id="entitySection" class="hidden fade-in mt-6">
+          <p class="text-sm font-medium text-slate-700 mb-3">I've noted:</p>
+          <div id="entityPills" class="flex flex-wrap gap-2">
+            <!-- Pills will be dynamically inserted -->
+          </div>
+        </div>
+
+        <!-- Specialty Recommendations -->
+        <div id="specialtySection" class="hidden fade-in mt-6">
+          <p class="text-sm font-medium text-slate-700 mb-3">Recommended specialists:</p>
+          <div id="specialtyCards" class="space-y-3">
+            <!-- Specialty cards will be inserted here -->
+          </div>
+        </div>
+
+        <!-- Hospital Selection -->
+        <div id="hospitalSection" class="hidden fade-in mt-6">
+          <p class="text-sm font-medium text-slate-700 mb-3">Available doctors:</p>
+          <div id="hospitalCards" class="space-y-3">
+            <!-- Hospital cards will be inserted here -->
+          </div>
+        </div>
+
+        <!-- Confirmation Screen -->
+        <div id="confirmationScreen" class="hidden fade-in">
+          <div class="text-center mb-6">
+            <div class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+              <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">Appointment Confirmed!</h2>
+            <p class="text-slate-600">Your appointment has been successfully booked</p>
+          </div>
+
+          <div id="appointmentDetails" class="bg-slate-50 rounded-lg p-5 space-y-4">
+            <!-- Details will be inserted -->
+          </div>
+
+          <div class="mt-6 space-y-3">
+            <button onclick="addToCalendar()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Add to Calendar
+            </button>
+            <button onclick="startOver()" class="w-full border-2 border-slate-300 text-slate-700 font-medium py-3 px-4 rounded-lg hover:bg-slate-50 transition-colors">
+              Book Another Appointment
+            </button>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Bottom Fixed Section -->
+      <div class="bottom-fixed-section flex-shrink-0 bg-white border-t border-slate-200 shadow-2xl">
+        
+        <!-- Transcript Area -->
+        <div id="transcriptArea" class="hidden px-6 py-3 bg-slate-50 border-b border-slate-200">
+          <p class="text-xs text-slate-500 mb-1">You're saying:</p>
+          <p id="liveTranscript" class="text-sm text-slate-600 italic"></p>
+        </div>
+
+        <!-- Voice Input Section -->
+        <div id="voiceInputSection" class="p-6">
+          <div class="flex flex-col items-center gap-4">
+            
+            <!-- Main Voice Button -->
+            <button id="voiceButton" onclick="toggleVoice()" class="relative w-20 h-20 bg-teal-600 hover:bg-teal-700 text-white rounded-full shadow-lg transition-all transform active:scale-95 flex items-center justify-center">
+              <!-- Microphone Icon (Default) -->
+              <svg id="micIcon" class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+              </svg>
+              <!-- Spinner (Hidden by default) -->
+              <svg id="spinnerIcon" class="hidden w-10 h-10 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+
+            <p id="voiceButtonText" class="text-sm font-medium text-slate-700">Tap to speak your symptoms</p>
+
+            <!-- Alternative: Type Instead -->
+            <button id="typeButton" onclick="showTypeInput()" class="text-sm text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              Or type instead
+            </button>
+          </div>
+        </div>
+
+        <!-- Text Input Section (Hidden by default) -->
+        <div id="textInputSection" class="hidden p-6 pt-3">
+          <div class="flex gap-2">
+            <input 
+              type="text" 
+              id="textInput" 
+              placeholder="Type your symptoms here..."
+              class="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+            />
+            <button onclick="submitText()" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+              Send
+            </button>
+          </div>
+          <button onclick="showVoiceInput()" class="mt-3 text-sm text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+            </svg>
+            Use voice instead
+          </button>
+        </div>
+
+      </div>
+      
+      </div><!-- End desktopContent -->
+
+    </div><!-- End app -->
+
+    <!-- Overlay for Verification Modal -->
+    <div id="verificationOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-lg max-w-md w-full slide-up" style="max-height: 80vh; overflow-y: auto;">
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-slate-900 mb-4">Verifying Your Appointment</h3>
+          <p class="text-sm text-slate-600 mb-6">I'm contacting the clinic on your behalf. This may take 1-2 minutes.</p>
+          
+          <div id="verificationStepsList" class="space-y-4">
+            <!-- Steps will be inserted dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="../src/js/index.js"></script>
+  </body>
+</html>
