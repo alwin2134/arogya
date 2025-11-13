@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arogya - AI-Powered Healthcare Appointments</title>
+    <meta name="description" content="Book doctor appointments instantly with AI-powered voice search. Find specialists, hospitals, and get verified appointments in seconds." />
+    <meta name="theme-color" content="#14b8a6" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Arogya - AI-Powered Healthcare Appointments" />
+    <meta property="og:description" content="Book doctor appointments instantly with AI-powered voice search. Find specialists, hospitals, and get verified appointments in seconds." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://arogya.healthcare" />
+    <meta property="og:image" content="https://arogya.healthcare/src/assets/images/arogya-hero-product-preview.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Arogya - AI-Powered Healthcare Appointments" />
+    <meta name="twitter:description" content="Book doctor appointments instantly with AI-powered voice search. Find specialists, hospitals, and get verified appointments in seconds." />
+    <meta name="twitter:image" content="https://arogya.healthcare/src/assets/images/arogya-hero-product-preview.png" />
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://arogya.healthcare/" />
+    
+    <link rel="icon" type="image/png" href="../src/assets/icons/favicon/android-chrome-192x192.png" />
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../src/css/landing.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navbar">
+      <div class="nav-container">
+        <a href="./" class="logo">
+          <img 
+            src="../src/assets/icons/favicon/android-chrome-192x192.png" 
+            alt="Arogya Logo" />
+          <div class="logo-text-container">
+            <span class="logo-text" id="logoText">Arogya</span>
+          </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="./auth.html" class="btn btn-outline">Sign In</a></li>
+          <li><a href="./auth.html?type=hospital" class="btn btn-secondary">For Hospitals</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      </div>
+    </nav>
+
+    <main role="main">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <h1>
+            Stop Waiting.
+            <span>Start Healing.</span>
+          </h1>
+          <p>
+            Tell us what hurts. We'll find the right doctor—in under a minute. No calls. No stress.
+          </p>
+          <div class="hero-buttons">
+            <a href="./index.html" class="btn btn-primary">Try It Now—It's Free</a>
+            <a href="#how-it-works" class="btn btn-outline">Watch 30-sec Demo</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">< 60s</span>
+              <span class="stat-label">Average Booking Time</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">Zero</span>
+              <span class="stat-label">Phone Calls Needed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Always Available</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img 
+            src="../src/assets/images/arogya-hero-product-preview.png" 
+            alt="Arogya app interface showing voice-first medical appointment booking" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="section-header">
+        <h2>Simple. Fast. Smart.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="mic"></i></div>
+          <h3>Voice Search</h3>
+          <p>Describe your symptoms in plain English. No forms or medical jargon.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="brain"></i></div>
+          <h3>AI Matching</h3>
+          <p>Our AI finds the right specialist based on your symptoms.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="phone-off"></i></div>
+          <h3>No Phone Calls</h3>
+          <p>Real-time availability check. No hold music or callbacks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="clock"></i></div>
+          <h3>24/7 Booking</h3>
+          <p>Book anytime, anywhere. The system never closes.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="shield-check"></i></div>
+          <h3>Verified Appointments</h3>
+          <p>Direct hospital confirmation via OTP. Your slot is guaranteed.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="map"></i></div>
+          <h3>Location-Based</h3>
+          <p>See distances, travel times, and find the nearest doctors.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="section-header">
+        <h2>Three Simple Steps</h2>
+      </div>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-icon"><i data-lucide="message-circle"></i></div>
+          <h3>Describe Symptoms</h3>
+          <p>Use voice or text to tell us your symptoms. Our AI identifies the right specialist for you.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon"><i data-lucide="user-check"></i></div>
+          <h3>Choose Doctor</h3>
+          <p>Browse available doctors with ratings, locations, and time slots. Select your preferred option.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon"><i data-lucide="calendar-check"></i></div>
+          <h3>Get Confirmed</h3>
+          <p>Receive instant confirmation. The hospital is notified and your appointment is set.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits" id="benefits">
+      <div class="benefits-container">
+        <div class="benefits-content">
+          <h2>Remember Last Time?</h2>
+          <ul class="benefits-list">
+            <li class="benefit-item">
+              <div class="benefit-icon"><i data-lucide="phone-off"></i></div>
+              <div class="benefit-text">
+                <h3>No More "Please Hold"</h3>
+                <p>That 15-minute elevator music torture? Gone. Get your appointment while your coffee is still hot.</p>
+              </div>
+            </li>
+            <li class="benefit-item">
+              <div class="benefit-icon"><i data-lucide="clock-3"></i></div>
+              <div class="benefit-text">
+                <h3>Book at 3 AM If You Want</h3>
+                <p>Realized you need a doctor while binge-watching Netflix? Do it right then. We don't judge.</p>
+              </div>
+            </li>
+            <li class="benefit-item">
+              <div class="benefit-icon"><i data-lucide="target"></i></div>
+              <div class="benefit-text">
+                <h3>Stop Guessing Which Doctor</h3>
+                <p>Is it a GP? Specialist? Stomach doctor? We ask smart questions and point you to exactly who you need.</p>
+              </div>
+            </li>
+            <li class="benefit-item">
+              <div class="benefit-icon"><i data-lucide="map-pin"></i></div>
+              <div class="benefit-text">
+                <h3>See Who's Actually Close</h3>
+                <p>"2.3 km away" beats "somewhere in North Delhi." Compare travel times and pick what works for you.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="benefits-comparison">
+          <h3 class="comparison-title">Old Way vs. Arogya</h3>
+          <div class="comparison-row" data-tooltip="Time saved: 28 minutes average">
+            <div class="comparison-item">
+              <h4>Calling Hospitals</h4>
+              <p>15-30 minutes average</p>
+            </div>
+            <div class="comparison-item highlight">
+              <h4>Using Arogya</h4>
+              <p>Under 60 seconds</p>
+            </div>
+          </div>
+          <div class="comparison-row" data-tooltip="No callbacks needed">
+            <div class="comparison-item">
+              <h4>Phone Tag Hell</h4>
+              <p>"Call back tomorrow"</p>
+            </div>
+            <div class="comparison-item highlight">
+              <h4>One Voice Command</h4>
+              <p>Done in one go</p>
+            </div>
+          </div>
+          <div class="comparison-row" data-tooltip="AI-powered specialty detection">
+            <div class="comparison-item">
+              <h4>Guessing Specialists</h4>
+              <p>Hope you chose right</p>
+            </div>
+            <div class="comparison-item highlight">
+              <h4>AI Matching</h4>
+              <p>We figure it out for you</p>
+            </div>
+          </div>
+          <div class="comparison-row" data-tooltip="Book anytime, anywhere">
+            <div class="comparison-item">
+              <h4>Office Hours Only</h4>
+              <p>9 AM - 5 PM, M-F</p>
+            </div>
+            <div class="comparison-item highlight">
+              <h4>Actually 24/7</h4>
+              <p>Midnight? Sunday? Yep.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="cta-content">
+        <h2>Try It Once. You'll Never Call Again.</h2>
+        <p>Book your first appointment in under a minute.</p>
+        <div class="hero-buttons hero-buttons-centered">
+          <a href="./index.html" class="btn btn-white">Book an Appointment Now</a>
+          <a href="./auth.html" class="btn btn-outline btn-outline-white">Sign Up Free</a>
+        </div>
+      </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section footer-about">
+          <h3>Arogya</h3>
+          <p class="footer-description">Voice-First Medical Appointment Booking with Real-Time Hospital Verification</p>
+          
+          <div class="project-highlights">
+            <div class="highlight-item">
+              <i data-lucide="mic"></i>
+              <span>Voice-First Interface</span>
+            </div>
+            <div class="highlight-item">
+              <i data-lucide="shield-check"></i>
+              <span>Real-Time Verification</span>
+            </div>
+            <div class="highlight-item">
+              <i data-lucide="brain"></i>
+              <span>AI-Powered Matching</span>
+            </div>
+          </div>
+
+          <div class="tech-stack">
+            <div class="tech-stack-label">Tech Stack</div>
+            <div class="tech-tags">
+              <span class="tech-tag">Agora SDK</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">PWA</span>
+              <span class="tech-tag">Web Speech API</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-section footer-team">
+          <h3>Team hawkeye.exe</h3>
+          <div class="team-members">
+            <div class="team-member" data-member="om">
+              <img 
+                src="../src/assets/images/profile-pics/om-singh-face-100x100.webp" 
+                alt="Om Singh"
+                loading="lazy" />
+              <div class="team-member-info">
+                <div class="team-member-header">
+                  <div class="role-icon"><i data-lucide="user-cog"></i></div>
+                  <span class="team-member-name">Om Singh</span>
+                </div>
+                <span class="team-member-role">Team Lead & Frontend</span>
+              </div>
+            </div>
+            <div class="team-member" data-member="noman">
+              <img 
+                src="../src/assets/images/profile-pics/noman-aqil-face-100x100.webp" 
+                alt="Noman Aqil"
+                loading="lazy" />
+              <div class="team-member-info">
+                <div class="team-member-header">
+                  <div class="role-icon"><i data-lucide="server"></i></div>
+                  <span class="team-member-name">Noman Aqil</span>
+                </div>
+                <span class="team-member-role">Backend Lead</span>
+              </div>
+            </div>
+            <div class="team-member" data-member="alwin">
+              <img 
+                src="../src/assets/images/profile-pics/alwin-mathew-face-100x100.webp" 
+                alt="Alwin Mathew"
+                loading="lazy" />
+              <div class="team-member-info">
+                <div class="team-member-header">
+                  <div class="role-icon"><i data-lucide="brain"></i></div>
+                  <span class="team-member-name">Alwin Mathew</span>
+                </div>
+                <span class="team-member-role">AI API Lead</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer-university">
+            <i data-lucide="graduation-cap"></i>
+            <span>Galgotias University</span>
+          </div>
+        </div>
+        
+        <div class="footer-section footer-links">
+          <h3>Project</h3>
+          <ul>
+            <li><a href="https://github.com/hawkeye-exe/arogya" target="_blank" rel="noopener"><i data-lucide="github"></i> GitHub Repository</a></li>
+            <li><a href="#features"><i data-lucide="zap"></i> Features</a></li>
+            <li><a href="#how-it-works"><i data-lucide="help-circle"></i> How It Works</a></li>
+          </ul>
+          <div class="demo-link-wrapper">
+            <a href="./index.html" class="demo-link">
+              <i data-lucide="play-circle"></i>
+              <span>Try Live Demo</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-section footer-connect">
+          <h3>Connect</h3>
+          <p class="connect-description">Stay connected with our team</p>
+          <div class="social-links">
+            <a href="https://github.com/hawkeye-exe" target="_blank" rel="noopener" class="social-link" title="GitHub"><i data-lucide="github"></i></a>
+            <a href="https://www.linkedin.com/company/hawkeye-exe" target="_blank" rel="noopener" class="social-link" title="LinkedIn"><i data-lucide="linkedin"></i></a>
+            <a href="mailto:hawkeyedotexe@gmail.com" class="social-link" title="Email"><i data-lucide="mail"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Arogya by Team hawkeye.exe • Built for Hackfest 2025</p>
+      </div>
+    </footer>
+
+    <!-- Member Card Overlays -->
+    <div class="member-card-overlay" id="memberCardOverlay">
+      <div class="member-card" id="memberCard">
+        <button class="member-card-close" id="memberCardClose">
+          <i data-lucide="x"></i>
+        </button>
+        <div class="member-card-content"></div>
+      </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="../src/js/landing.js"></script>
+  </body>
+</html>
