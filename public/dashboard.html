@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Dashboard - Arogya</title>
+    <meta name="description" content="Manage appointments and patients efficiently" />
+    <meta name="theme-color" content="#14b8a6" />
+    <link rel="icon" type="image/png" href="../src/assets/icons/favicon/android-chrome-192x192.png" />
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../src/css/dashboard.css" />
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="./landing.html" class="logo">
+            <svg width="40" height="40" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="sidebarLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <!-- Outer arc -->
+              <path d="M 180 100 A 80 80 0 0 0 100 20" stroke="url(#sidebarLogoGradient)" stroke-width="28" fill="none" stroke-linecap="round"/>
+              <!-- Inner arc -->
+              <path d="M 60 140 A 80 80 0 0 0 140 60" stroke="url(#sidebarLogoGradient)" stroke-width="28" fill="none" stroke-linecap="round"/>
+              <!-- Lightning bolt -->
+              <path d="M 120 50 L 80 110 L 110 110 L 70 160 L 130 90 L 95 90 Z" fill="url(#sidebarLogoGradient)"/>
+            </svg>
+            <span class="logo-text">Arogya</span>
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="calendar"></i>
+            <span>Appointments</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="users"></i>
+            <span>Patients</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="clock"></i>
+            <span>Schedule</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-menu" id="userMenu">
+            <a href="#" class="user-menu-item">
+              <i data-lucide="user"></i>
+              <span>Profile</span>
+            </a>
+            <a href="#" class="user-menu-item">
+              <i data-lucide="settings"></i>
+              <span>Settings</span>
+            </a>
+            <a href="#" class="user-menu-item">
+              <i data-lucide="help-circle"></i>
+              <span>Help & Support</span>
+            </a>
+            <div class="user-menu-divider"></div>
+            <button class="user-menu-item" id="logoutBtn">
+              <i data-lucide="log-out"></i>
+              <span>Logout</span>
+            </button>
+          </div>
+          <div class="user-info" id="userInfoBtn">
+            <div class="user-avatar">RM</div>
+            <div class="user-details">
+              <span class="user-name">RAMS Hospital</span>
+              <span class="user-role">Healthcare Provider</span>
+            </div>
+            <i data-lucide="chevron-down"></i>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+          <div class="header-left">
+            <h1>Dashboard</h1>
+            <p class="header-subtitle">Welcome back! Here's what's happening today.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary">
+              <i data-lucide="download"></i>
+              <span>Export</span>
+            </button>
+            <button class="btn btn-primary">
+              <i data-lucide="plus"></i>
+              <span>New Appointment</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon primary">
+                  <i data-lucide="calendar-check"></i>
+                </div>
+                <div class="stat-trend up">
+                  <i data-lucide="trending-up"></i>
+                  <span>12%</span>
+                </div>
+              </div>
+              <div class="stat-value">24</div>
+              <div class="stat-label">Today's Appointments</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon warning">
+                  <i data-lucide="clock"></i>
+                </div>
+                <div class="stat-trend down">
+                  <i data-lucide="trending-down"></i>
+                  <span>5%</span>
+                </div>
+              </div>
+              <div class="stat-value">6</div>
+              <div class="stat-label">Pending Confirmations</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon success">
+                  <i data-lucide="check-circle"></i>
+                </div>
+                <div class="stat-trend up">
+                  <i data-lucide="trending-up"></i>
+                  <span>8%</span>
+                </div>
+              </div>
+              <div class="stat-value">142</div>
+              <div class="stat-label">This Week</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon secondary">
+                  <i data-lucide="users"></i>
+                </div>
+                <div class="stat-trend up">
+                  <i data-lucide="trending-up"></i>
+                  <span>15%</span>
+                </div>
+              </div>
+              <div class="stat-value">1,284</div>
+              <div class="stat-label">Total Patients</div>
+            </div>
+          </div>
+
+          <!-- Main Grid -->
+          <div class="main-grid">
+            <!-- Today's Appointments -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">
+                  <i data-lucide="calendar"></i>
+                  Today's Appointments
+                </h2>
+                <a href="#" class="card-action">
+                  View All
+                  <i data-lucide="arrow-right"></i>
+                </a>
+              </div>
+              <div class="card-body">
+                <div class="appointment-list">
+                  <div class="appointment-item">
+                    <div class="appointment-header">
+                      <div class="appointment-patient">
+                        <div class="patient-avatar">RS</div>
+                        <div class="patient-info">
+                          <h4>Rajesh Sharma</h4>
+                          <p>+91 98765 43210</p>
+                        </div>
+                      </div>
+                      <div class="appointment-time">
+                        <i data-lucide="clock"></i>
+                        <span>10:30 AM</span>
+                      </div>
+                    </div>
+                    <div class="appointment-details">
+                      <div class="detail-item">
+                        <i data-lucide="stethoscope"></i>
+                        <span>General Checkup</span>
+                      </div>
+                      <div class="detail-item">
+                        <i data-lucide="user-circle"></i>
+                        <span>Dr. Priya Verma</span>
+                      </div>
+                    </div>
+                    <div class="appointment-actions">
+                      <button class="btn btn-success btn-sm">
+                        <i data-lucide="check"></i>
+                        <span>Confirm</span>
+                      </button>
+                      <button class="btn btn-danger btn-sm">
+                        <i data-lucide="x"></i>
+                        <span>Cancel</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="appointment-item">
+                    <div class="appointment-header">
+                      <div class="appointment-patient">
+                        <div class="patient-avatar">AK</div>
+                        <div class="patient-info">
+                          <h4>Anita Kapoor</h4>
+                          <p>+91 98123 45678</p>
+                        </div>
+                      </div>
+                      <div class="appointment-time">
+                        <i data-lucide="clock"></i>
+                        <span>11:00 AM</span>
+                      </div>
+                    </div>
+                    <div class="appointment-details">
+                      <div class="detail-item">
+                        <i data-lucide="stethoscope"></i>
+                        <span>Cardiology Consultation</span>
+                      </div>
+                      <div class="detail-item">
+                        <i data-lucide="user-circle"></i>
+                        <span>Dr. Amit Patel</span>
+                      </div>
+                    </div>
+                    <div class="appointment-actions">
+                      <button class="btn btn-success btn-sm">
+                        <i data-lucide="check"></i>
+                        <span>Confirm</span>
+                      </button>
+                      <button class="btn btn-danger btn-sm">
+                        <i data-lucide="x"></i>
+                        <span>Cancel</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="appointment-item">
+                    <div class="appointment-header">
+                      <div class="appointment-patient">
+                        <div class="patient-avatar">VG</div>
+                        <div class="patient-info">
+                          <h4>Vikram Gupta</h4>
+                          <p>+91 98234 56789</p>
+                        </div>
+                      </div>
+                      <div class="appointment-time">
+                        <i data-lucide="clock"></i>
+                        <span>02:30 PM</span>
+                      </div>
+                    </div>
+                    <div class="appointment-details">
+                      <div class="detail-item">
+                        <i data-lucide="stethoscope"></i>
+                        <span>Orthopedic Consultation</span>
+                      </div>
+                      <div class="detail-item">
+                        <i data-lucide="user-circle"></i>
+                        <span>Dr. Sarah Khan</span>
+                      </div>
+                    </div>
+                    <div class="appointment-actions">
+                      <button class="btn btn-success btn-sm">
+                        <i data-lucide="check"></i>
+                        <span>Confirm</span>
+                      </button>
+                      <button class="btn btn-danger btn-sm">
+                        <i data-lucide="x"></i>
+                        <span>Cancel</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">
+                  <i data-lucide="zap"></i>
+                  Quick Actions
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="quick-actions">
+                  <a href="#" class="action-btn">
+                    <div class="action-icon primary">
+                      <i data-lucide="calendar-plus"></i>
+                    </div>
+                    <div class="action-content">
+                      <h4>Schedule Appointment</h4>
+                      <p>Book a new appointment</p>
+                    </div>
+                    <i data-lucide="chevron-right"></i>
+                  </a>
+
+                  <a href="#" class="action-btn">
+                    <div class="action-icon secondary">
+                      <i data-lucide="user-plus"></i>
+                    </div>
+                    <div class="action-content">
+                      <h4>Add New Patient</h4>
+                      <p>Register patient details</p>
+                    </div>
+                    <i data-lucide="chevron-right"></i>
+                  </a>
+
+                  <a href="#" class="action-btn">
+                    <div class="action-icon warning">
+                      <i data-lucide="bell"></i>
+                    </div>
+                    <div class="action-content">
+                      <h4>View Notifications</h4>
+                      <p>3 unread messages</p>
+                    </div>
+                    <i data-lucide="chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <i data-lucide="activity"></i>
+                Recent Activity
+              </h2>
+              <a href="#" class="card-action">
+                View All
+                <i data-lucide="arrow-right"></i>
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-icon primary">
+                    <i data-lucide="check-circle"></i>
+                  </div>
+                  <div class="activity-content">
+                    <p><strong>Appointment confirmed</strong> with Rajesh Sharma for 10:30 AM</p>
+                    <span class="activity-time">5 minutes ago</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon warning">
+                    <i data-lucide="user-plus"></i>
+                  </div>
+                  <div class="activity-content">
+                    <p><strong>New patient registered</strong> - Meera Deshmukh</p>
+                    <span class="activity-time">12 minutes ago</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon secondary">
+                    <i data-lucide="calendar"></i>
+                  </div>
+                  <div class="activity-content">
+                    <p><strong>Appointment rescheduled</strong> - Vikram Gupta moved to 2:30 PM</p>
+                    <span class="activity-time">1 hour ago</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon success">
+                    <i data-lucide="file-text"></i>
+                  </div>
+                  <div class="activity-content">
+                    <p><strong>Medical report uploaded</strong> for Anita Kapoor</p>
+                    <span class="activity-time">2 hours ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- New Appointment Modal -->
+    <div class="modal-overlay" id="appointmentModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">
+            <i data-lucide="calendar-plus"></i>
+            Schedule New Appointment
+          </h2>
+          <button class="modal-close" onclick="closeModal('appointmentModal')">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="appointmentForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  Patient Name<span class="required">*</span>
+                </label>
+                <input type="text" class="form-input" placeholder="Enter patient name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Phone Number<span class="required">*</span>
+                </label>
+                <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  Appointment Date<span class="required">*</span>
+                </label>
+                <input type="date" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Appointment Time<span class="required">*</span>
+                </label>
+                <input type="time" class="form-input" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  Department<span class="required">*</span>
+                </label>
+                <select class="form-select" required>
+                  <option value="">Select Department</option>
+                  <option value="general">General Medicine</option>
+                  <option value="cardiology">Cardiology</option>
+                  <option value="orthopedic">Orthopedic</option>
+                  <option value="pediatrics">Pediatrics</option>
+                  <option value="dermatology">Dermatology</option>
+                  <option value="neurology">Neurology</option>
+                  <option value="gynecology">Gynecology</option>
+                  <option value="ent">ENT</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Doctor<span class="required">*</span>
+                </label>
+                <select class="form-select" required>
+                  <option value="">Select Doctor</option>
+                  <option value="dr-verma">Dr. Priya Verma</option>
+                  <option value="dr-patel">Dr. Amit Patel</option>
+                  <option value="dr-khan">Dr. Sarah Khan</option>
+                  <option value="dr-sharma">Dr. Raj Sharma</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">
+                Reason for Visit
+              </label>
+              <textarea class="form-textarea" placeholder="Describe symptoms or reason for appointment..."></textarea>
+              <p class="form-help">Optional: Add any additional information</p>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeModal('appointmentModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="saveAppointment()">
+            <i data-lucide="check"></i>
+            <span>Schedule Appointment</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Patient Modal -->
+    <div class="modal-overlay" id="patientModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">
+            <i data-lucide="user-plus"></i>
+            Add New Patient
+          </h2>
+          <button class="modal-close" onclick="closeModal('patientModal')">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="patientForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  First Name<span class="required">*</span>
+                </label>
+                <input type="text" class="form-input" placeholder="Enter first name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Last Name<span class="required">*</span>
+                </label>
+                <input type="text" class="form-input" placeholder="Enter last name" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  Date of Birth<span class="required">*</span>
+                </label>
+                <input type="date" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Gender<span class="required">*</span>
+                </label>
+                <select class="form-select" required>
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  Phone Number<span class="required">*</span>
+                </label>
+                <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Email Address
+                </label>
+                <input type="email" class="form-input" placeholder="patient@example.com" />
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">
+                Address<span class="required">*</span>
+              </label>
+              <textarea class="form-textarea" placeholder="Enter full address" required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  Blood Group
+                </label>
+                <select class="form-select">
+                  <option value="">Select Blood Group</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  Emergency Contact
+                </label>
+                <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" />
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">
+                Medical History / Allergies
+              </label>
+              <textarea class="form-textarea" placeholder="List any known allergies, chronic conditions, or ongoing medications..."></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeModal('patientModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="savePatient()">
+            <i data-lucide="check"></i>
+            <span>Add Patient</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal-overlay" id="exportModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">
+            <i data-lucide="download"></i>
+            Export Data
+          </h2>
+          <button class="modal-close" onclick="closeModal('exportModal')">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="exportForm">
+            <div class="form-group">
+              <label class="form-label">
+                Data Type<span class="required">*</span>
+              </label>
+              <select class="form-select" required>
+                <option value="">Select data to export</option>
+                <option value="appointments">Appointments</option>
+                <option value="patients">Patients</option>
+                <option value="reports">Reports</option>
+                <option value="all">All Data</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  Start Date<span class="required">*</span>
+                </label>
+                <input type="date" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  End Date<span class="required">*</span>
+                </label>
+                <input type="date" class="form-input" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Export Format<span class="required">*</span>
+              </label>
+              <select class="form-select" required>
+                <option value="">Select format</option>
+                <option value="pdf">PDF Document</option>
+                <option value="excel">Excel Spreadsheet</option>
+                <option value="csv">CSV File</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="closeModal('exportModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="exportData()">
+            <i data-lucide="download"></i>
+            <span>Export</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="../src/js/dashboard.js"></script>
+  </body>
+</html>
