@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Arogya</title>
+    <meta name="description" content="Sign in to Arogya - Book medical appointments instantly with voice-powered AI" />
+    <meta name="theme-color" content="#14b8a6" />
+    <link rel="icon" type="image/png" href="../src/assets/icons/favicon/android-chrome-192x192.png" />
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+  <link rel="stylesheet" href="../src/css/auth.css">
+  </head>
+  <body>
+    <div class="auth-container">
+      <a href="./landing.html" class="back-link">
+        <i data-lucide="arrow-left"></i>
+        Back to Home
+      </a>
+
+      <div class="auth-header">
+        <a href="./landing.html" class="auth-logo">
+          <img src="../src/assets/icons/favicon/android-chrome-192x192.png" alt="Arogya Logo" />
+          <span class="auth-logo-text">Arogya</span>
+        </a>
+        <h1 id="authTitle">Welcome Back</h1>
+        <p id="authSubtitle">Sign in to book appointments instantly</p>
+      </div>
+
+      <div class="auth-card">
+        <!-- User Type Toggle -->
+        <div class="user-type-toggle">
+          <button class="user-type-btn active" data-type="patient">
+            <i data-lucide="user"></i>
+            <span>Patient</span>
+          </button>
+          <button class="user-type-btn" data-type="hospital">
+            <i data-lucide="building-2"></i>
+            <span>Hospital</span>
+          </button>
+        </div>
+
+        <!-- Auth Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="signin">Sign In</button>
+          <button class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <form class="auth-form active" id="signinForm">
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <div class="phone-input-wrapper">
+              <input type="text" class="country-code" value="+91" readonly />
+              <input 
+                type="tel" 
+                class="phone-input" 
+                id="signinPhone" 
+                placeholder="Enter your phone number"
+                maxlength="10"
+                pattern="[0-9]{10}"
+                required 
+              />
+            </div>
+            <p class="form-error" id="signinPhoneError">Please enter a valid 10-digit phone number</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="form-input-wrapper">
+              <div class="form-input-icon">
+                <i data-lucide="lock"></i>
+              </div>
+              <input 
+                type="password" 
+                class="form-input" 
+                id="signinPassword" 
+                placeholder="Enter your password"
+                required 
+              />
+              <button type="button" class="password-toggle" data-input="signinPassword">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <p class="form-error" id="signinPasswordError">Password is required</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span class="btn-text">Sign In</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form class="auth-form" id="signupForm">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <div class="form-input-wrapper">
+              <div class="form-input-icon">
+                <i data-lucide="user"></i>
+              </div>
+              <input 
+                type="text" 
+                class="form-input" 
+                id="signupName" 
+                placeholder="Enter your full name"
+                required 
+              />
+            </div>
+            <p class="form-error" id="signupNameError">Please enter your full name</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <div class="phone-input-wrapper">
+              <input type="text" class="country-code" value="+91" readonly />
+              <input 
+                type="tel" 
+                class="phone-input" 
+                id="signupPhone" 
+                placeholder="Enter your phone number"
+                maxlength="10"
+                pattern="[0-9]{10}"
+                required 
+              />
+            </div>
+            <p class="form-error" id="signupPhoneError">Please enter a valid 10-digit phone number</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Create Password</label>
+            <div class="form-input-wrapper">
+              <div class="form-input-icon">
+                <i data-lucide="lock"></i>
+              </div>
+              <input 
+                type="password" 
+                class="form-input" 
+                id="signupPassword" 
+                placeholder="Create a strong password"
+                minlength="6"
+                required 
+              />
+              <button type="button" class="password-toggle" data-input="signupPassword">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <p class="form-error" id="signupPasswordError">Password must be at least 6 characters</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span class="btn-text">Continue</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </form>
+
+        <!-- OTP Verification Section -->
+        <div class="otp-section" id="otpSection">
+          <div class="otp-info">
+            <div class="otp-info-icon">
+              <i data-lucide="shield-check"></i>
+            </div>
+            <div class="otp-info-text">
+              <p>We've sent a 6-digit OTP to <span class="phone-number" id="otpPhoneDisplay"></span></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Enter OTP</label>
+            <div class="otp-inputs">
+              <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" />
+              <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" />
+              <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" />
+              <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" />
+              <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" />
+              <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" />
+            </div>
+            <p class="form-error" id="otpError">Please enter the complete OTP</p>
+          </div>
+
+          <div class="otp-resend">
+            <p>Didn't receive the code? 
+              <button type="button" id="resendOtpBtn" disabled>
+                Resend OTP <span class="otp-timer" id="otpTimer">(30s)</span>
+              </button>
+            </p>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="verifyOtpBtn" style="margin-top: 1.5rem;">
+            <span class="btn-text">Verify OTP</span>
+            <i data-lucide="check-circle"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary" id="changePhoneBtn" style="margin-top: 0.75rem;">
+            <i data-lucide="edit-2"></i>
+            <span>Change Phone Number</span>
+          </button>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          <div class="success-icon">
+            <i data-lucide="check"></i>
+          </div>
+          <h2>Verification Successful!</h2>
+          <p>Redirecting you to your dashboard...</p>
+        </div>
+
+        <!-- Form Footer -->
+        <div class="form-footer" id="formFooter">
+          <p id="footerText">Don't have an account? <a href="#" id="footerLink">Sign Up</a></p>
+        </div>
+      </div>
+    </div>
+
+  <script src="../src/js/auth.js"></script>
+</html>
