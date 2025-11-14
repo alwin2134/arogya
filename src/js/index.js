@@ -14,7 +14,22 @@ let appState = {
   paymentInfo: null,
   appointmentData: null,
   conversationHistory: [],
-  uploadedFiles: []
+  uploadedFiles: [],
+  slotsByDate: {},
+  availableDates: [],
+  currentDateIndex: 0,
+  userProfile: {
+    name: 'Guest User',
+    email: 'user@example.com',
+    phone: '+91 XXXXX XXXXX',
+    age: null,
+    gender: null,
+    memberSince: 'Nov 2025'
+  },
+  appointments: {
+    upcoming: [],
+    past: []
+  }
 };
 
 // ============================================
@@ -665,14 +680,45 @@ function verifyAndShowSlots(hospital) {
   document.getElementById('slotVerificationNotice').classList.add('hidden');
   document.getElementById('slotSectionSubtext').textContent = 'Choose your preferred date and time';
   
-  // Generate slots (simulating hospital confirmation)
+  // Generate slots (simulating hospital confirmation) - More realistic schedule
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date(today);
+  dayAfter.setDate(dayAfter.getDate() + 2);
+  
+  const formatDateForSlot = (date) => {
+    return date.toISOString().split('T')[0];
+  };
+  
   const slots = [
-    { id: 's1', date: '2025-11-14', time: '3:15 PM', available: true },
-    { id: 's2', date: '2025-11-14', time: '4:30 PM', available: true },
-    { id: 's3', date: '2025-11-14', time: '5:45 PM', available: true },
-    { id: 's4', date: '2025-11-15', time: '9:00 AM', available: true },
-    { id: 's5', date: '2025-11-15', time: '10:30 AM', available: true },
-    { id: 's6', date: '2025-11-15', time: '2:00 PM', available: true }
+    // Today - afternoon/evening only
+    { id: 's1', date: formatDateForSlot(today), time: '03:15 PM', available: true },
+    { id: 's2', date: formatDateForSlot(today), time: '04:30 PM', available: true },
+    { id: 's3', date: formatDateForSlot(today), time: '05:45 PM', available: true },
+    
+    // Tomorrow - full schedule
+    { id: 's4', date: formatDateForSlot(tomorrow), time: '09:00 AM', available: true },
+    { id: 's5', date: formatDateForSlot(tomorrow), time: '10:00 AM', available: true },
+    { id: 's6', date: formatDateForSlot(tomorrow), time: '11:00 AM', available: true },
+    { id: 's7', date: formatDateForSlot(tomorrow), time: '12:00 PM', available: true },
+    { id: 's8', date: formatDateForSlot(tomorrow), time: '02:00 PM', available: true },
+    { id: 's9', date: formatDateForSlot(tomorrow), time: '03:00 PM', available: true },
+    { id: 's10', date: formatDateForSlot(tomorrow), time: '04:00 PM', available: true },
+    
+    // Day after - full schedule
+    { id: 's11', date: formatDateForSlot(dayAfter), time: '10:00 AM', available: true },
+    { id: 's12', date: formatDateForSlot(dayAfter), time: '10:30 AM', available: true },
+    { id: 's13', date: formatDateForSlot(dayAfter), time: '11:00 AM', available: true },
+    { id: 's14', date: formatDateForSlot(dayAfter), time: '11:30 AM', available: true },
+    { id: 's15', date: formatDateForSlot(dayAfter), time: '12:00 PM', available: true },
+    { id: 's16', date: formatDateForSlot(dayAfter), time: '12:30 PM', available: true },
+    { id: 's17', date: formatDateForSlot(dayAfter), time: '01:00 PM', available: true },
+    { id: 's18', date: formatDateForSlot(dayAfter), time: '01:30 PM', available: true },
+    { id: 's19', date: formatDateForSlot(dayAfter), time: '02:00 PM', available: true },
+    { id: 's20', date: formatDateForSlot(dayAfter), time: '02:30 PM', available: true },
+    { id: 's21', date: formatDateForSlot(dayAfter), time: '03:00 PM', available: true },
+    { id: 's22', date: formatDateForSlot(dayAfter), time: '03:30 PM', available: true }
   ];
   
   hospital.slots = slots;
@@ -682,9 +728,6 @@ function verifyAndShowSlots(hospital) {
 }
 
 function displaySlots(slots) {
-  const container = document.getElementById('slotCards');
-  container.innerHTML = '';
-  
   // Group slots by date
   const slotsByDate = {};
   slots.forEach(slot => {
@@ -694,27 +737,123 @@ function displaySlots(slots) {
     slotsByDate[slot.date].push(slot);
   });
   
-  // Display slots grouped by date
-  Object.keys(slotsByDate).forEach(date => {
-    const dateLabel = formatDate(date);
-    const dateHeader = document.createElement('div');
-    dateHeader.className = 'text-sm font-semibold text-slate-700 mt-4 mb-2';
-    dateHeader.textContent = dateLabel;
-    container.appendChild(dateHeader);
+  appState.slotsByDate = slotsByDate;
+  appState.availableDates = Object.keys(slotsByDate);
+  appState.currentDateIndex = 0;
+  
+  // Display date carousel
+  displayDateCarousel();
+  
+  // Display slots for first date
+  displaySlotsForDate(appState.availableDates[0]);
+}
+
+function displayDateCarousel() {
+  const carousel = document.getElementById('dateCarousel');
+  carousel.innerHTML = '';
+  
+  const dates = appState.availableDates || [];
+  dates.forEach((date, index) => {
+    const dateBtn = document.createElement('button');
+    dateBtn.className = `flex-shrink-0 px-6 py-3 rounded-lg text-center transition-all ${
+      index === appState.currentDateIndex 
+        ? 'bg-teal-600 text-white border-2 border-teal-600' 
+        : 'bg-white border-2 border-slate-200 text-slate-700 hover:border-teal-300'
+    }`;
     
-    const slotsGrid = document.createElement('div');
-    slotsGrid.className = 'grid grid-cols-3 gap-2';
+    const dateObj = new Date(date);
+    const dayName = dateObj.toLocaleDateString('en-IN', { weekday: 'short' });
+    const dayNum = dateObj.getDate();
+    const monthName = dateObj.toLocaleDateString('en-IN', { month: 'short' });
+    const slotsCount = appState.slotsByDate[date].length;
     
-    slotsByDate[date].forEach(slot => {
-      const slotBtn = document.createElement('button');
-      slotBtn.className = 'px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-teal-500 hover:bg-teal-50 transition-all text-sm font-medium text-slate-700';
-      slotBtn.textContent = slot.time;
-      slotBtn.onclick = () => selectSlot(slot);
-      slotsGrid.appendChild(slotBtn);
-    });
-    
-    container.appendChild(slotsGrid);
+    dateBtn.innerHTML = `
+      <div class="font-semibold">${dayName}, ${dayNum} ${monthName}</div>
+      <div class="text-xs mt-1 ${index === appState.currentDateIndex ? 'text-teal-100' : 'text-green-600'}">${slotsCount} Slots Available</div>
+    `;
+    dateBtn.onclick = () => selectDate(index);
+    carousel.appendChild(dateBtn);
   });
+}
+
+function selectDate(index) {
+  appState.currentDateIndex = index;
+  displayDateCarousel();
+  displaySlotsForDate(appState.availableDates[index]);
+}
+
+function navigateDates(direction) {
+  const newIndex = appState.currentDateIndex + direction;
+  if (newIndex >= 0 && newIndex < appState.availableDates.length) {
+    selectDate(newIndex);
+  }
+}
+
+function displaySlotsForDate(date) {
+  const slots = appState.slotsByDate[date];
+  
+  // Categorize slots by time of day
+  const morning = [];
+  const afternoon = [];
+  const evening = [];
+  
+  slots.forEach(slot => {
+    const hour = parseInt(slot.time.split(':')[0]);
+    const isPM = slot.time.includes('PM');
+    const hour24 = isPM && hour !== 12 ? hour + 12 : hour;
+    
+    if (hour24 < 12) {
+      morning.push(slot);
+    } else if (hour24 < 17) {
+      afternoon.push(slot);
+    } else {
+      evening.push(slot);
+    }
+  });
+  
+  // Display morning slots
+  const morningGrid = document.getElementById('morningSlotGrid');
+  morningGrid.innerHTML = '';
+  if (morning.length > 0) {
+    document.getElementById('morningSlots').classList.remove('hidden');
+    morning.forEach(slot => {
+      morningGrid.appendChild(createSlotButton(slot));
+    });
+  } else {
+    document.getElementById('morningSlots').classList.add('hidden');
+  }
+  
+  // Display afternoon slots
+  const afternoonGrid = document.getElementById('afternoonSlotGrid');
+  afternoonGrid.innerHTML = '';
+  if (afternoon.length > 0) {
+    document.getElementById('afternoonSlots').classList.remove('hidden');
+    afternoon.forEach(slot => {
+      afternoonGrid.appendChild(createSlotButton(slot));
+    });
+  } else {
+    document.getElementById('afternoonSlots').classList.add('hidden');
+  }
+  
+  // Display evening slots
+  const eveningGrid = document.getElementById('eveningSlotGrid');
+  eveningGrid.innerHTML = '';
+  if (evening.length > 0) {
+    document.getElementById('eveningSlots').classList.remove('hidden');
+    evening.forEach(slot => {
+      eveningGrid.appendChild(createSlotButton(slot));
+    });
+  } else {
+    document.getElementById('eveningSlots').classList.add('hidden');
+  }
+}
+
+function createSlotButton(slot) {
+  const btn = document.createElement('button');
+  btn.className = 'px-3 py-2 border-2 border-slate-200 rounded-lg hover:border-teal-500 hover:bg-teal-50 transition-all text-sm font-medium text-teal-600 hover:text-teal-700';
+  btn.textContent = slot.time;
+  btn.onclick = () => selectSlot(slot);
+  return btn;
 }
 
 function formatDate(dateString) {
@@ -1058,4 +1197,291 @@ END:VCALENDAR`;
   URL.revokeObjectURL(url);
   
   addMessage('bot', 'Calendar event created! You can import it to your calendar app.');
+}
+
+// ============================================
+// PROFILE & APPOINTMENTS NAVIGATION
+// ============================================
+function showProfilePage() {
+  // Hide main booking interface
+  document.getElementById('welcomeScreen').classList.add('hidden');
+  document.getElementById('conversationArea').classList.add('hidden');
+  document.getElementById('entitySection').classList.add('hidden');
+  document.getElementById('specialtySection').classList.add('hidden');
+  document.getElementById('hospitalSection').classList.add('hidden');
+  document.getElementById('slotSection').classList.add('hidden');
+  document.getElementById('patientInfoSection').classList.add('hidden');
+  document.getElementById('paymentSection').classList.add('hidden');
+  document.getElementById('confirmationScreen').classList.add('hidden');
+  document.getElementById('appointmentsPage').classList.add('hidden');
+  document.getElementById('voiceInputSection').classList.add('hidden');
+  
+  // Show profile page
+  document.getElementById('profilePage').classList.remove('hidden');
+  
+  // Load profile data
+  loadProfileData();
+  
+  scrollToTop();
+}
+
+function hideProfilePage() {
+  document.getElementById('profilePage').classList.add('hidden');
+  document.getElementById('welcomeScreen').classList.remove('hidden');
+  document.getElementById('voiceInputSection').classList.remove('hidden');
+  updateMainContentAlignment();
+}
+
+function loadProfileData() {
+  // Update from last patient info if available
+  if (appState.patientInfo) {
+    appState.userProfile.name = appState.patientInfo.name;
+    appState.userProfile.age = appState.patientInfo.age;
+    appState.userProfile.gender = appState.patientInfo.gender;
+    appState.userProfile.phone = appState.patientInfo.phone;
+    appState.userProfile.email = appState.patientInfo.email || appState.userProfile.email;
+  }
+  
+  document.getElementById('profileName').textContent = appState.userProfile.name;
+  document.getElementById('profileEmail').textContent = appState.userProfile.email;
+  document.getElementById('profilePhone').textContent = appState.userProfile.phone;
+  document.getElementById('profileAge').textContent = appState.userProfile.age || '--';
+  document.getElementById('profileGender').textContent = appState.userProfile.gender ? 
+    appState.userProfile.gender.charAt(0).toUpperCase() + appState.userProfile.gender.slice(1) : '--';
+  document.getElementById('profileMemberSince').textContent = appState.userProfile.memberSince;
+  
+  // Set initials
+  const initials = appState.userProfile.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  document.getElementById('profileInitials').textContent = initials;
+}
+
+function editProfile() {
+  alert('Profile editing coming soon! This will allow you to update your personal information.');
+}
+
+function viewMedicalHistory() {
+  alert('Medical History feature coming soon! This will show your past diagnoses and prescriptions.');
+}
+
+function managePaymentMethods() {
+  alert('Payment Methods feature coming soon! This will allow you to save and manage payment options.');
+}
+
+function showNotificationSettings() {
+  alert('Notification Settings coming soon! This will allow you to customize your notification preferences.');
+}
+
+function logout() {
+  if (confirm('Are you sure you want to logout?')) {
+    // Clear user data
+    appState.userProfile = {
+      name: 'Guest User',
+      email: 'user@example.com',
+      phone: '+91 XXXXX XXXXX',
+      age: null,
+      gender: null,
+      memberSince: 'Nov 2025'
+    };
+    appState.appointments = { upcoming: [], past: [] };
+    
+    // Redirect to landing page
+    window.location.href = 'landing.html';
+  }
+}
+
+function showAppointmentsPage() {
+  // Hide main booking interface
+  document.getElementById('welcomeScreen').classList.add('hidden');
+  document.getElementById('conversationArea').classList.add('hidden');
+  document.getElementById('entitySection').classList.add('hidden');
+  document.getElementById('specialtySection').classList.add('hidden');
+  document.getElementById('hospitalSection').classList.add('hidden');
+  document.getElementById('slotSection').classList.add('hidden');
+  document.getElementById('patientInfoSection').classList.add('hidden');
+  document.getElementById('paymentSection').classList.add('hidden');
+  document.getElementById('confirmationScreen').classList.add('hidden');
+  document.getElementById('profilePage').classList.add('hidden');
+  document.getElementById('voiceInputSection').classList.add('hidden');
+  
+  // Show appointments page
+  document.getElementById('appointmentsPage').classList.remove('hidden');
+  
+  // Load appointments
+  loadAppointments();
+  
+  scrollToTop();
+}
+
+function hideAppointmentsPage() {
+  document.getElementById('appointmentsPage').classList.add('hidden');
+  document.getElementById('welcomeScreen').classList.remove('hidden');
+  document.getElementById('voiceInputSection').classList.remove('hidden');
+  updateMainContentAlignment();
+}
+
+function loadAppointments() {
+  // Add current appointment if it exists
+  if (appState.appointmentData) {
+    const appointment = {
+      id: appState.appointmentData.receiptNumber,
+      doctor: appState.appointmentData.doctor.name,
+      specialty: appState.appointmentData.doctor.specialty,
+      clinic: appState.appointmentData.doctor.clinic,
+      date: appState.appointmentData.slot.date,
+      time: appState.appointmentData.slot.time,
+      status: 'confirmed',
+      amount: appState.appointmentData.payment.amount
+    };
+    
+    // Check if appointment is in future
+    const appointmentDate = new Date(appointment.date);
+    const today = new Date();
+    
+    if (appointmentDate >= today) {
+      if (!appState.appointments.upcoming.some(a => a.id === appointment.id)) {
+        appState.appointments.upcoming.push(appointment);
+      }
+    } else {
+      if (!appState.appointments.past.some(a => a.id === appointment.id)) {
+        appState.appointments.past.push(appointment);
+      }
+    }
+  }
+  
+  displayUpcomingAppointments();
+}
+
+function displayUpcomingAppointments() {
+  const container = document.getElementById('upcomingAppointments');
+  const appointments = appState.appointments.upcoming;
+  
+  if (appointments.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <p class="text-slate-500 mb-4">No upcoming appointments</p>
+        <button onclick="hideAppointmentsPage()" class="bg-teal-600 hover:bg-teal-700 text-white font-medium py-2 px-6 rounded-lg transition-colors">
+          Book New Appointment
+        </button>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = appointments.map(apt => `
+    <div class="bg-white border border-slate-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <h3 class="font-semibold text-slate-900">${apt.doctor}</h3>
+          <p class="text-sm text-slate-600">${apt.specialty}</p>
+          <p class="text-sm text-slate-500">${apt.clinic}</p>
+        </div>
+        <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+          ${apt.status}
+        </span>
+      </div>
+      <div class="flex items-center gap-4 text-sm text-slate-600 mb-3">
+        <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span>${formatDate(apt.date)}</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>${apt.time}</span>
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="viewAppointmentDetails('${apt.id}')" class="flex-1 py-2 px-4 bg-teal-50 text-teal-600 font-medium text-sm rounded-lg hover:bg-teal-100 transition-colors">
+          View Details
+        </button>
+        <button onclick="cancelAppointment('${apt.id}')" class="py-2 px-4 bg-red-50 text-red-600 font-medium text-sm rounded-lg hover:bg-red-100 transition-colors">
+          Cancel
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function displayPastAppointments() {
+  const container = document.getElementById('pastAppointments');
+  const appointments = appState.appointments.past;
+  
+  if (appointments.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-slate-500">No past appointments</p>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = appointments.map(apt => `
+    <div class="bg-white border border-slate-200 rounded-lg p-4">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <h3 class="font-semibold text-slate-900">${apt.doctor}</h3>
+          <p class="text-sm text-slate-600">${apt.specialty}</p>
+          <p class="text-sm text-slate-500">${apt.clinic}</p>
+        </div>
+        <span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">
+          Completed
+        </span>
+      </div>
+      <div class="flex items-center gap-4 text-sm text-slate-600 mb-3">
+        <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span>${formatDate(apt.date)}</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>${apt.time}</span>
+        </div>
+      </div>
+      <button onclick="viewAppointmentDetails('${apt.id}')" class="w-full py-2 px-4 bg-slate-100 text-slate-700 font-medium text-sm rounded-lg hover:bg-slate-200 transition-colors">
+        View Receipt
+      </button>
+    </div>
+  `).join('');
+}
+
+function switchAppointmentTab(tab) {
+  if (tab === 'upcoming') {
+    document.getElementById('upcomingTab').className = 'pb-3 px-2 font-medium text-teal-600 border-b-2 border-teal-600 transition-colors';
+    document.getElementById('pastTab').className = 'pb-3 px-2 font-medium text-slate-500 hover:text-slate-700 transition-colors';
+    document.getElementById('upcomingAppointments').classList.remove('hidden');
+    document.getElementById('pastAppointments').classList.add('hidden');
+    displayUpcomingAppointments();
+  } else {
+    document.getElementById('upcomingTab').className = 'pb-3 px-2 font-medium text-slate-500 hover:text-slate-700 transition-colors';
+    document.getElementById('pastTab').className = 'pb-3 px-2 font-medium text-teal-600 border-b-2 border-teal-600 transition-colors';
+    document.getElementById('upcomingAppointments').classList.add('hidden');
+    document.getElementById('pastAppointments').classList.remove('hidden');
+    displayPastAppointments();
+  }
+}
+
+function viewAppointmentDetails(appointmentId) {
+  alert(`Viewing details for appointment: ${appointmentId}`);
+  // This would show a modal with full appointment details
+}
+
+function cancelAppointment(appointmentId) {
+  if (confirm('Are you sure you want to cancel this appointment?')) {
+    appState.appointments.upcoming = appState.appointments.upcoming.filter(a => a.id !== appointmentId);
+    displayUpcomingAppointments();
+    alert('Appointment cancelled successfully. Refund will be processed within 5-7 business days.');
+  }
 }
