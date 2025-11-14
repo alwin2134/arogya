@@ -499,18 +499,47 @@ function startOver() {
     entities: [],
     selectedSpecialty: null,
     selectedHospital: null,
+    selectedSlot: null,
+    patientInfo: null,
+    paymentInfo: null,
     appointmentData: null,
-    conversationHistory: []
+    conversationHistory: [],
+    uploadedFiles: []
   };
   
-  // Reset UI
+  // Reset UI - Hide all sections
   document.getElementById('confirmationScreen').classList.add('hidden');
+  document.getElementById('entitySection').classList.add('hidden');
+  document.getElementById('specialtySection').classList.add('hidden');
+  document.getElementById('hospitalSection').classList.add('hidden');
+  document.getElementById('slotSection').classList.add('hidden');
+  document.getElementById('patientInfoSection').classList.add('hidden');
+  document.getElementById('paymentSection').classList.add('hidden');
+  
+  // Show welcome screen
   document.getElementById('welcomeScreen').classList.remove('hidden');
   document.getElementById('conversationArea').innerHTML = '';
+  document.getElementById('conversationArea').classList.add('hidden');
   document.getElementById('voiceInputSection').classList.remove('hidden');
   document.getElementById('transcriptArea').classList.add('hidden');
-  updateMainContentAlignment();
   
+  // Clear entity pills
+  document.getElementById('entityPills').innerHTML = '';
+  
+  // Clear form inputs
+  document.getElementById('patientName').value = '';
+  document.getElementById('patientAge').value = '';
+  document.getElementById('patientGender').value = '';
+  document.getElementById('patientPhone').value = '';
+  document.getElementById('patientEmail').value = '';
+  document.getElementById('patientNotes').value = '';
+  document.getElementById('medicalReports').value = '';
+  document.getElementById('uploadedFilesList').innerHTML = '';
+  
+  // Reset voice button text
+  document.getElementById('voiceButtonText').textContent = 'Tap to speak your symptoms';
+  
+  updateMainContentAlignment();
   resetVoiceButton();
   scrollToTop();
 }
