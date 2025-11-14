@@ -550,8 +550,8 @@
 
     <!-- Appointments Modal -->
     <div id="appointmentsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-xl max-w-2xl w-full slide-up shadow-2xl" style="max-height: 85vh; overflow-y: auto;">
-        <div class="sticky top-0 bg-white border-b border-slate-200 p-6 rounded-t-xl flex items-center justify-between">
+      <div class="bg-white rounded-xl max-w-2xl w-full slide-up shadow-2xl flex flex-col" style="max-height: 85vh;">
+        <div class="bg-white border-b border-slate-200 p-6 rounded-t-xl flex items-center justify-between flex-shrink-0">
           <h2 class="text-2xl font-bold text-slate-900">My Appointments</h2>
           <button onclick="hideAppointmentsPage()" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
             <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -560,7 +560,7 @@
           </button>
         </div>
         
-        <div class="p-6">
+        <div class="p-6 overflow-y-auto flex-1">
           <!-- Tabs -->
           <div class="flex gap-4 mb-6 border-b border-slate-200">
             <button onclick="switchAppointmentTab('upcoming')" id="upcomingTab" class="pb-3 px-2 font-medium text-teal-600 border-b-2 border-teal-600 transition-colors">
@@ -601,8 +601,8 @@
 
     <!-- Profile Modal -->
     <div id="profileModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-xl max-w-lg w-full slide-up shadow-2xl" style="max-height: 85vh; overflow-y: auto;">
-        <div class="sticky top-0 bg-white border-b border-slate-200 p-6 rounded-t-xl flex items-center justify-between">
+      <div class="bg-white rounded-xl max-w-lg w-full slide-up shadow-2xl flex flex-col" style="max-height: 85vh;">
+        <div class="bg-white border-b border-slate-200 p-6 rounded-t-xl flex items-center justify-between flex-shrink-0">
           <h2 class="text-2xl font-bold text-slate-900">Profile</h2>
           <button onclick="hideProfilePage()" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
             <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -611,7 +611,7 @@
           </button>
         </div>
         
-        <div class="p-6">
+        <div class="p-6 overflow-y-auto flex-1">
           <!-- Profile Info -->
           <div class="bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-200 rounded-xl p-6 mb-6">
             <div class="flex items-center gap-4 mb-4">
