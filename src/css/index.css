@@ -80,6 +80,35 @@
   scrollbar-width: none;
 }
 
+/* Custom scrollbar styling for modals */
+#appointmentsModal .slide-up::-webkit-scrollbar,
+#profileModal .slide-up::-webkit-scrollbar {
+  width: 6px;
+}
+
+#appointmentsModal .slide-up::-webkit-scrollbar-track,
+#profileModal .slide-up::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#appointmentsModal .slide-up::-webkit-scrollbar-thumb,
+#profileModal .slide-up::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 10px;
+}
+
+#appointmentsModal .slide-up::-webkit-scrollbar-thumb:hover,
+#profileModal .slide-up::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+/* Firefox scrollbar */
+#appointmentsModal .slide-up,
+#profileModal .slide-up {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+}
+
 /* Custom status indicator */
 .status-dot {
   width: 8px;
