@@ -7,7 +7,9 @@
     "start": "npx serve public",
     "dev": "npx serve public -l 3000",
     "build": "echo 'Build process for production'",
-    "test": "echo 'No tests configured yet'"
+    "test": "echo 'No tests configured yet'",
+    "lint": "echo 'Linting code...'",
+    "format": "prettier --write \"src/**/*.{js,css,html}\""
   },
   "keywords": [
     "healthcare",
